@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pack Flash — YONE VFX | Edite rápido no Premiere</title>
+<meta name="description" content="+30 presets e efeitos para Premiere, +300 efeitos sonoros, memes, backgrounds, green screens e 5 aulas com 10 anos de experiência em edição.">
+<meta property="og:title" content="Pack Flash — YONE VFX">
+<meta property="og:description" content="10 anos de edição resumidos em 5 aulas + pack completo de presets, SFX e recursos.">
+<meta property="og:image" content="assets/capa.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0c0516;
+    --bg2:#140a24;
+    --card:#1a0f2e;
+    --line:rgba(190,150,255,.16);
+    --purple:#8b3dff;
+    --purple-2:#a970ff;
+    --lilac:#d4bbff;
+    --white:#ffffff;
+    --muted:#b9abd3;
+    --radius:20px;
+    --head:'Unbounded',system-ui,sans-serif;
+    --body:'Manrope',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;overflow-x:clip}
+  section,header,.timeline{overflow-x:clip;position:relative}
+  body{background:var(--bg);color:var(--white);font-family:var(--body);line-height:1.55;overflow-x:clip;-webkit-font-smoothing:antialiased}
+  img,video{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  .wrap{width:min(1160px,92vw);margin:0 auto}
+
+  /* grain + glow background */
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:100;opacity:.07;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .glow{position:absolute;border-radius:50%;filter:blur(120px);pointer-events:none;z-index:0}
+
+  /* top bar */
+  .topbar{background:var(--purple);color:#fff;text-align:center;font-weight:800;font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;padding:.6rem 1rem;position:relative;z-index:5}
+  .topbar span{background:#fff;color:var(--purple);padding:.1rem .5rem;border-radius:6px;margin:0 .3rem}
+
+  /* buttons */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:.7rem;font-family:var(--head);font-weight:700;font-size:1rem;letter-spacing:.02em;text-transform:uppercase;
+    background:linear-gradient(180deg,#9d55ff,#7a2ef0);color:#fff;padding:1.15rem 2.2rem;border-radius:999px;
+    box-shadow:0 0 0 1px rgba(255,255,255,.18) inset,0 14px 40px -10px rgba(139,61,255,.85);transition:transform .2s,box-shadow .2s}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 0 0 1px rgba(255,255,255,.3) inset,0 20px 50px -10px rgba(139,61,255,1)}
+  .btn svg{width:20px;height:20px}
+  .btn.big{font-size:1.15rem;padding:1.35rem 2.6rem;width:100%;max-width:520px}
+  .btn.ghost{background:transparent;border:2px solid var(--white);box-shadow:none;padding:1rem 1.8rem}
+  .btn.ghost:hover{background:#fff;color:var(--bg)}
+  .pulse{animation:pulse 2.4s infinite}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 1px rgba(255,255,255,.18) inset,0 14px 40px -10px rgba(139,61,255,.85),0 0 0 0 rgba(169,112,255,.55)}50%{box-shadow:0 0 0 1px rgba(255,255,255,.18) inset,0 14px 40px -10px rgba(139,61,255,.85),0 0 0 14px rgba(169,112,255,0)}}
+
+  .eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-weight:800;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--lilac);
+    border:1px solid var(--line);background:rgba(139,61,255,.1);padding:.45rem .9rem;border-radius:999px}
+  .eyebrow i{width:8px;height:8px;border-radius:50%;background:#7dff9b;box-shadow:0 0 10px #7dff9b;animation:blink 1.4s infinite}
+  @keyframes blink{50%{opacity:.25}}
+  h1,h2,h3{font-family:var(--head);line-height:1.08;letter-spacing:-.02em}
+  h2{font-size:clamp(1.8rem,4vw,3rem);font-weight:900;text-transform:uppercase}
+  .hl{color:var(--purple-2)}
+  .hl-box{background:var(--purple);color:#fff;padding:0 .25em;border-radius:.15em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+  .sub{color:var(--muted);font-size:1.08rem;max-width:620px}
+  section{position:relative;padding:110px 0}
+  .center{text-align:center}
+  .center .sub{margin:1rem auto 0}
+
+  /* HERO */
+  .hero{padding:80px 0 110px;overflow:hidden}
+  .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center;position:relative;z-index:2}
+  .hero h1{font-size:clamp(2.2rem,5.2vw,4.1rem);font-weight:900;text-transform:uppercase;margin:1.4rem 0 1.2rem}
+  .hero .sub{font-size:1.15rem;margin-bottom:2rem}
+  .hero-ctas{display:flex;flex-wrap:wrap;gap:1rem;align-items:center}
+  .hero-proof{display:flex;gap:1.6rem;margin-top:2.2rem;flex-wrap:wrap}
+  .hero-proof div{font-size:.85rem;color:var(--muted);line-height:1.3}
+  .hero-proof b{display:block;font-family:var(--head);font-size:1.5rem;color:#fff}
+
+  /* cover polaroid */
+  .cover{position:relative;transform:rotate(2.5deg)}
+  .cover::before{content:"";position:absolute;inset:0;background:#e9e3f5;border-radius:6px;transform:rotate(-5deg) translate(-10px,8px);box-shadow:0 30px 60px rgba(0,0,0,.5)}
+  .cover-inner{position:relative;background:#fff;padding:16px 16px 56px;border-radius:6px;box-shadow:0 40px 80px -20px rgba(0,0,0,.7),0 0 120px -20px rgba(139,61,255,.6)}
+  .cover-inner img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:2px}
+  .cover-inner .cap{position:absolute;bottom:16px;left:0;right:0;text-align:center;font-family:var(--head);font-weight:700;color:var(--bg);font-size:.95rem;letter-spacing:.04em}
+  .clip{position:absolute;top:-34px;left:22%;width:26px;height:80px;border:4px solid #ff3d6e;border-radius:14px;z-index:3;transform:rotate(-6deg)}
+  .cover-fallback{display:none;aspect-ratio:1/1;border-radius:2px;background:
+      radial-gradient(circle at 70% 30%,rgba(169,112,255,.9),transparent 55%),linear-gradient(160deg,#2a1150,#0c0516);
+      position:relative;overflow:hidden;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:2rem}
+  .noimg img{display:none}.noimg .cover-fallback{display:flex}
+  .cover-fallback strong{font-family:var(--head);font-weight:900;font-size:clamp(1.6rem,3.4vw,2.6rem);text-transform:uppercase;line-height:1;color:#fff}
+  .cover-fallback small{color:var(--lilac);font-weight:700;letter-spacing:.2em;font-size:.7rem;margin-top:.8rem}
+  .cover-fallback .curve{position:absolute;left:0;right:0;bottom:18%;height:40%}
+
+  /* timeline strip */
+  .timeline{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg2);overflow:hidden;position:relative;padding:18px 0}
+  .tl-track{display:flex;gap:10px;width:max-content;animation:scroll 38s linear infinite}
+  .tl-clip{height:44px;border-radius:8px;display:flex;align-items:center;padding:0 16px;font-weight:800;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+  .c1{background:#8b3dff}.c2{background:#3a2363;color:var(--lilac)}.c3{background:#fff;color:var(--bg)}.c4{background:#5b2bb0}
+  .playhead{position:absolute;top:0;bottom:0;left:50%;width:3px;background:#ffd23d;z-index:2}
+  .playhead::before{content:"";position:absolute;top:0;left:-7px;border:8px solid transparent;border-top:12px solid #ffd23d}
+  @keyframes scroll{to{transform:translateX(-50%)}}
+
+  /* VIDEOS */
+  .videos{display:grid;grid-template-columns:repeat(2,minmax(0,540px));justify-content:center;gap:32px;margin-top:56px}
+  .vcard{position:relative}
+  .vlabel{display:flex;align-items:center;gap:.6rem;margin-bottom:14px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:.85rem;color:var(--lilac)}
+  .vlabel em{font-style:normal;font-family:var(--head);background:var(--purple);color:#fff;width:28px;height:28px;border-radius:8px;display:grid;place-items:center;font-size:.8rem}
+  .vframe{position:relative;aspect-ratio:16/9;border-radius:20px;overflow:hidden;background:#000;border:2px solid rgba(255,255,255,.12);
+    box-shadow:0 30px 80px -30px rgba(139,61,255,.9)}
+  .vframe video,.vframe iframe{width:100%;height:100%;object-fit:contain;border:0}
+  .vph{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;gap:.8rem;text-align:center;padding:2rem;color:var(--muted);font-size:.85rem;
+    background:linear-gradient(160deg,#24124a,#0c0516)}
+  .vph .play{width:74px;height:74px;border-radius:50%;background:var(--purple);display:grid;place-items:center;box-shadow:0 0 50px rgba(139,61,255,.8)}
+  .vframe.novideo .vph{display:flex}.vframe.novideo video{display:none}
+
+  /* WHAT'S INSIDE */
+  .grid-items{display:grid;grid-template-columns:repeat(6,1fr);gap:20px;margin-top:56px}
+  .item{grid-column:span 2;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:30px;position:relative;overflow:hidden;transition:transform .25s,border-color .25s}
+  .item:hover{transform:translateY(-4px);border-color:rgba(169,112,255,.55)}
+  .item:nth-child(5),.item:nth-child(6){grid-column:span 3}
+  .item .num{font-family:var(--head);font-weight:900;font-size:2.6rem;line-height:1;color:#fff}
+  .item .num span{color:var(--purple-2)}
+  .item h3{font-size:1.05rem;text-transform:uppercase;margin:.7rem 0 .5rem;font-weight:700}
+  .item p{color:var(--muted);font-size:.95rem}
+  .item .ico{position:absolute;top:22px;right:22px;width:44px;height:44px;border-radius:12px;background:rgba(139,61,255,.18);display:grid;place-items:center;color:var(--purple-2)}
+  .item .ico svg{width:22px;height:22px}
+  .item.feature{grid-column:span 6;display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center;background:linear-gradient(120deg,#5d22c4,#8b3dff 60%,#a970ff)}
+  .item.feature p{color:#efe6ff}
+  .item.feature .num span{color:#fff;opacity:.6}
+
+  /* LESSONS */
+  .lessons-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:60px;align-items:start}
+  .lessons-list{display:flex;flex-direction:column;gap:12px}
+  .lesson{display:grid;grid-template-columns:64px 1fr;gap:18px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 22px}
+  .lesson .n{font-family:var(--head);font-weight:900;font-size:1.5rem;color:var(--purple-2)}
+  .lesson h4{font-family:var(--head);font-size:.95rem;font-weight:700;text-transform:uppercase}
+  .lesson p{color:var(--muted);font-size:.9rem}
+  .sticky{position:sticky;top:40px}
+
+  /* ABOUT */
+  .about{background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .about-grid{display:grid;grid-template-columns:auto 1fr;gap:56px;align-items:center}
+  .avatar{width:260px;height:260px;border-radius:50%;padding:6px;background:conic-gradient(from 180deg,var(--purple),#fff,var(--purple-2),var(--purple))}
+  .avatar img,.avatar .av-fb{width:100%;height:100%;border-radius:50%;object-fit:cover;background:#24124a}
+  .avatar .av-fb{display:none;place-items:center;font-family:var(--head);font-weight:900;font-size:4rem;color:var(--lilac)}
+  .avatar.noimg img{display:none}.avatar.noimg .av-fb{display:grid}
+  .about .years{font-family:var(--head);font-weight:900;font-size:clamp(3rem,7vw,5.5rem);line-height:.9;color:transparent;-webkit-text-stroke:2px var(--purple-2)}
+  .about p{color:var(--muted);margin-top:1rem;font-size:1.05rem;max-width:600px}
+  .about p b{color:#fff}
+  .handle{display:inline-flex;margin-top:1.4rem;font-weight:800;color:var(--lilac);border-bottom:2px solid var(--purple)}
+
+  /* OFFER */
+  .offer-box{margin-top:56px;display:grid;grid-template-columns:1fr 1fr;border-radius:28px;overflow:hidden;border:1px solid rgba(169,112,255,.35);
+    box-shadow:0 50px 120px -40px rgba(139,61,255,.75);background:var(--card)}
+  .offer-list{padding:44px}
+  .offer-list h3{font-size:1.3rem;text-transform:uppercase;color:var(--purple-2);margin-bottom:1.4rem}
+  .offer-list ul{list-style:none;display:flex;flex-direction:column;gap:14px}
+  .offer-list li{display:flex;align-items:center;gap:14px;font-weight:700;text-transform:uppercase;font-size:.98rem}
+  .offer-list li svg{flex:none;width:22px;height:22px;color:var(--purple-2)}
+  .offer-list li.bonus span{background:var(--purple);padding:.1rem .4rem;border-radius:4px}
+  .offer-price{background:linear-gradient(160deg,#8b3dff,#5d22c4);padding:44px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;overflow:hidden}
+  .offer-price .tag{background:#fff;color:var(--purple);font-family:var(--head);font-weight:900;font-size:.85rem;padding:.4rem .9rem;border-radius:999px;transform:rotate(-3deg);margin-bottom:1.2rem}
+  .old{font-size:1.1rem;color:#e6d8ff;font-weight:700}
+  .old s{font-family:var(--head);text-decoration-thickness:3px;text-decoration-color:#ff3d6e}
+  .new{font-family:var(--head);font-weight:900;font-size:clamp(3.4rem,7vw,5.2rem);line-height:1;margin:.4rem 0 .2rem;display:flex;align-items:flex-start;justify-content:center;gap:.3rem}
+  .new small{font-size:.32em;margin-top:.55em}
+  .new sup{font-size:.4em;margin-top:.25em}
+  .once{color:#efe6ff;font-weight:600;margin-bottom:1.6rem}
+  .offer-price .btn{background:#fff;color:var(--purple);box-shadow:0 18px 40px -12px rgba(0,0,0,.5)}
+  .offer-price .btn:hover{background:#f3ecff}
+  .secure{display:flex;gap:1.2rem;flex-wrap:wrap;justify-content:center;margin-top:1.3rem;font-size:.8rem;font-weight:700;color:#efe6ff}
+  .secure span{display:flex;align-items:center;gap:.35rem}
+  .secure svg{width:16px;height:16px}
+
+  /* TESTIMONIALS */
+  .testis{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:56px}
+  .testi{background:var(--card);border:1px dashed rgba(169,112,255,.4);border-radius:var(--radius);padding:24px;min-height:200px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;color:var(--muted);font-size:.9rem;gap:.6rem}
+  .testi img{width:100%;border-radius:12px}
+  .testi.real{border-style:solid;justify-content:flex-start;align-items:stretch;text-align:left;color:#fff}
+
+  /* GUARANTEE */
+  .guarantee{display:grid;grid-template-columns:auto 1fr;gap:40px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:28px;padding:44px}
+  .seal{width:150px;height:150px;border-radius:50%;background:conic-gradient(var(--purple),var(--purple-2),var(--purple));display:grid;place-items:center;text-align:center;
+    box-shadow:0 0 60px -10px rgba(139,61,255,.9);animation:spin 20s linear infinite}
+  .seal div{width:122px;height:122px;border-radius:50%;background:var(--bg);display:grid;place-items:center;animation:spin 20s linear infinite reverse}
+  .seal b{font-family:var(--head);font-size:2.6rem;line-height:1;display:block}
+  .seal small{font-weight:800;font-size:.7rem;letter-spacing:.12em;color:var(--lilac)}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .guarantee h3{font-size:1.6rem;text-transform:uppercase;margin-bottom:.6rem}
+  .guarantee p{color:var(--muted)}
+
+  /* FAQ */
+  .faq{max-width:800px;margin:56px auto 0;display:flex;flex-direction:column;gap:12px}
+  details{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:0 24px;transition:border-color .2s}
+  details[open]{border-color:rgba(169,112,255,.5)}
+  summary{cursor:pointer;list-style:none;font-weight:800;font-size:1.02rem;padding:22px 0;display:flex;justify-content:space-between;gap:1rem;align-items:center}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";font-family:var(--head);font-size:1.5rem;color:var(--purple-2);transition:transform .2s}
+  details[open] summary::after{transform:rotate(45deg)}
+  details p{color:var(--muted);padding-bottom:22px}
+
+  /* FINAL */
+  .final{text-align:center;overflow:hidden}
+  .final h2{font-size:clamp(2rem,5vw,3.8rem);max-width:900px;margin:0 auto 1.2rem}
+  footer{border-top:1px solid var(--line);padding:36px 0 110px;text-align:center;color:var(--muted);font-size:.85rem}
+
+  /* sticky mobile CTA */
+  .mbar{position:fixed;left:0;right:0;bottom:0;z-index:50;background:rgba(12,5,22,.92);backdrop-filter:blur(12px);border-top:1px solid var(--line);
+    padding:12px 4vw;display:flex;align-items:center;justify-content:space-between;gap:12px;transform:translateY(110%);transition:transform .35s}
+  .mbar.show{transform:none}
+  .mbar .p{line-height:1.1}
+  .mbar .p s{color:var(--muted);font-size:.8rem}
+  .mbar .p b{display:block;font-family:var(--head);font-size:1.3rem}
+  .mbar .btn{padding:.9rem 1.4rem;font-size:.85rem}
+
+  /* reveal */
+  .rv{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+  .rv.in{opacity:1;transform:none}
+
+  @media (max-width:1000px){.videos{grid-template-columns:minmax(0,640px)}}
+  @media (max-width:900px){
+    section{padding:80px 0}
+    .hero{padding:50px 0 80px}
+    .hero-grid,.lessons-grid,.offer-box,.about-grid{grid-template-columns:1fr}
+    .hero-grid{gap:56px}
+    .cover{max-width:400px;margin:0 auto;width:100%}
+    .testis{grid-template-columns:1fr 1fr}
+    .grid-items{grid-template-columns:1fr 1fr}
+    .item,.item:nth-child(5),.item:nth-child(6){grid-column:span 1}
+    .item.feature{grid-column:span 2;grid-template-columns:1fr}
+    .sticky{position:static}
+    .about-grid{text-align:center;justify-items:center}
+    .about p{margin-left:auto;margin-right:auto}
+    .guarantee{grid-template-columns:1fr;text-align:center;justify-items:center}
+  }
+  @media (max-width:620px){
+    .videos{grid-template-columns:minmax(0,1fr);gap:36px}
+    .grid-items,.testis{grid-template-columns:1fr}
+    .item.feature{grid-column:span 1}
+    .offer-list,.offer-price,.guarantee{padding:30px 24px}
+    .avatar{width:200px;height:200px}
+    .hero-ctas .btn{width:100%}
+  }
+  @media (min-width:901px){.mbar{display:none}}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<!--
+  ===========================================================
+  CONFIGURAÇÃO RÁPIDA — edite só o objeto CONFIG no fim do arquivo
+  (link da Cakto, nome do pack, seu nome e @).
+  Arquivos em /assets:
+    capa.png           -> capa do kit (quadrada)
+    foto.jpg           -> sua foto (quadrada)
+    video-demo.mp4     -> vídeo demonstrativo
+    video-sobre.mp4    -> vídeo falando sobre o pack
+    poster-demo.jpg / poster-sobre.jpg -> (opcional) thumbnail dos vídeos
+    depoimento-1.png ... -> prints de depoimentos REAIS
+  ===========================================================
+-->
+
+<div class="topbar">Oferta de lançamento <span>-80%</span> por tempo limitado</div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="glow" style="width:600px;height:600px;background:#6a1fff;opacity:.35;top:-200px;right:-150px"></div>
+  <div class="glow" style="width:400px;height:400px;background:#a970ff;opacity:.18;bottom:-200px;left:-120px"></div>
+  <div class="wrap hero-grid">
+    <div class="rv">
+      <div class="eyebrow"><i></i> Editando desde 2016</div>
+      <h1>10 anos de edição <span class="hl-box">resumidos</span> em <span class="hl">5 aulas</span></h1>
+      <p class="sub">Aprenda a editar rápido no Premiere com o pack completo que eu uso: presets, efeitos, +300 SFX, memes, backgrounds, green screens e a mentalidade de quem edita no ritmo da internet.</p>
+      <div class="hero-ctas">
+        <a href="#oferta" class="btn pulse">Quero o pack
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="#videos" class="btn ghost">Ver o pack em ação</a>
+      </div>
+      <div class="hero-proof">
+        <div><b>+30</b>presets &amp; efeitos</div>
+        <div><b>+300</b>efeitos sonoros</div>
+        <div><b>5</b>aulas práticas</div>
+      </div>
+    </div>
+    <div class="cover rv" id="cover">
+      <div class="clip"></div>
+      <div class="cover-inner">
+        <img src="assets/capa.jpg" alt="Capa do pack" onerror="document.getElementById('cover').classList.add('noimg')">
+        <div class="cover-fallback">
+          <svg class="curve" viewBox="0 0 400 120" preserveAspectRatio="none"><path d="M0 100 H120 C170 100 170 20 220 20 S270 100 320 100 H400" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="3"/><rect x="114" y="94" width="12" height="12" fill="#fff"/><rect x="314" y="94" width="12" height="12" fill="#fff"/></svg>
+          <strong data-bind="packName">Pack Flash</strong>
+          <small>PREMIERE PRO · PRESETS · SFX · AULAS</small>
+        </div>
+        <div class="cap" data-bind="packName">Pack Flash</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- TIMELINE STRIP -->
+<div class="timeline" aria-hidden="true">
+  <div class="playhead"></div>
+  <div class="tl-track" id="tl"></div>
+</div>
+
+<!-- VIDEOS -->
+<section id="videos">
+  <div class="glow" style="width:500px;height:500px;background:#6a1fff;opacity:.2;top:10%;left:50%;transform:translateX(-50%)"></div>
+  <div class="wrap center rv" style="position:relative;z-index:2">
+    <div class="eyebrow">Assista antes de comprar</div>
+    <h2 style="margin-top:1.2rem">Veja o pack <span class="hl">em ação</span></h2>
+    <p class="sub">Um vídeo editado com o pack e outro onde eu explico tudo que vem dentro.</p>
+  </div>
+  <div class="wrap videos" style="position:relative;z-index:2">
+    <div class="vcard rv">
+      <div class="vlabel"><em>01</em> Demonstração</div>
+      <div class="vframe">
+        <!-- Para usar YouTube/Vimeo, troque o <video> por um <iframe src="..."> -->
+        <video src="assets/video-demo.mp4" poster="assets/poster-demo.jpg" controls playsinline preload="metadata"></video>
+        <div class="vph"><div class="play"><svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></div>Coloque <b>assets/video-demo.mp4</b></div>
+      </div>
+    </div>
+    <div class="vcard rv">
+      <div class="vlabel"><em>02</em> O que tem no pack</div>
+      <div class="vframe">
+        <video src="assets/video-sobre.mp4" poster="assets/poster-sobre.jpg" controls playsinline preload="metadata"></video>
+        <div class="vph"><div class="play"><svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></div>Coloque <b>assets/video-sobre.mp4</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT'S INSIDE -->
+<section id="conteudo" style="padding-top:40px">
+  <div class="wrap">
+    <div class="center rv">
+      <div class="eyebrow">O que você recebe</div>
+      <h2 style="margin-top:1.2rem">Tudo pra editar <span class="hl">mais rápido</span></h2>
+      <p class="sub">Arraste, solte e publique. Recursos atualizados e organizados pra você parar de perder horas procurando efeito.</p>
+    </div>
+    <div class="grid-items">
+      <div class="item feature rv">
+        <div class="num">5<span> aulas</span></div>
+        <div>
+          <h3>Aulas comigo: o pack + a mentalidade do editor rápido</h3>
+          <p>Eu mostro como usar cada recurso do pack dentro do Premiere e, principalmente, como pensar a edição pra entregar rápido sem perder qualidade. São 10 anos de atalhos, erros e acertos condensados.</p>
+        </div>
+      </div>
+      <div class="item rv">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l2.5 5.5L20 11l-5.5 2.5L12 19l-2.5-5.5L4 11l5.5-2.5z"/></svg></div>
+        <div class="num">+30</div><h3>Presets &amp; efeitos</h3><p>Transições, zooms, shakes, glitches e animações prontas pra arrastar no Premiere.</p>
+      </div>
+      <div class="item rv">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10v4M7 6v12M11 3v18M15 8v8M19 5v14"/></svg></div>
+        <div class="num">+300</div><h3>Efeitos sonoros</h3><p>SFX de qualidade e atualizados: whooshes, impactos, risers, pops e os sons da internet.</p>
+      </div>
+      <div class="item rv">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8.5 14.5s1.3 2 3.5 2 3.5-2 3.5-2M9 9.5h.01M15 9.5h.01"/></svg></div>
+        <div class="num">Memes</div><h3>Atuais</h3><p>Os memes que estão rodando agora, prontos pra encaixar no timing certo.</p>
+      </div>
+      <div class="item rv">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 16l5-5 4 4 3-3 6 6"/></svg></div>
+        <div class="num">BGs</div><h3>Backgrounds</h3><p>Fundos pra vídeos, thumbnails e textos que deixam o conteúdo com cara profissional.</p>
+      </div>
+      <div class="item rv">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9l5 3-5 3z"/></svg></div>
+        <div class="num">Green</div><h3>Screens</h3><p>Elementos em chroma key pra recortar e usar em qualquer edição.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LESSONS -->
+<section id="aulas" style="padding-top:40px">
+  <div class="wrap lessons-grid">
+    <div class="sticky rv">
+      <div class="eyebrow">As aulas</div>
+      <h2 style="margin-top:1.2rem">Não é só um pack. É o <span class="hl">meu jeito</span> de editar.</h2>
+      <p class="sub" style="margin-top:1rem">Ter efeito bom não adianta se você demora 6 horas pra montar um vídeo de 1 minuto. Nas aulas eu mostro o fluxo que uso pra editar rápido.</p>
+    </div>
+    <div class="lessons-list">
+      <div class="lesson rv"><div class="n">01</div><div><h4>Como usar o pack</h4><p>Instalação, organização e como tirar o máximo de cada recurso.</p></div></div>
+      <div class="lesson rv"><div class="n">02</div><div><h4>Editando um vídeo viral de GTA 6</h4><p>Edição completa do zero, aplicando o pack num vídeo viral real.</p></div></div>
+      <div class="lesson rv"><div class="n">03</div><div><h4>Como usar os meus presets</h4><p>Onde e quando aplicar cada preset pra dar ritmo e impacto.</p></div></div>
+      <div class="lesson rv"><div class="n">04</div><div><h4>Como criar seus presets</h4><p>Monte e salve seus próprios presets pra editar cada vez mais rápido.</p></div></div>
+      <div class="lesson rv"><div class="n">05</div><div><h4>Mentalidade de um editor rápido e profissional</h4><p>O jeito de pensar que corta horas da sua edição sem perder qualidade.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about">
+  <div class="wrap about-grid">
+    <div class="avatar rv" id="avatar">
+      <img src="assets/foto.jpg" alt="YONE VFX" onerror="document.getElementById('avatar').classList.add('noimg')">
+      <div class="av-fb" data-bind="initials">ED</div>
+    </div>
+    <div class="rv">
+      <div class="years">2016</div>
+      <h2 style="margin-top:.6rem">Prazer, eu sou <span class="hl" data-bind="name">YONE VFX</span></h2>
+      <p>Edito desde 2016. Em <b>10 anos</b> eu testei de tudo: plugins, fluxos, atalhos e milhares de efeitos. Esse pack é o resultado disso: <b>só o que realmente funciona</b>, organizado do jeito que eu uso no dia a dia.</p>
+      <p>Montei as aulas pra você pular a parte que me custou anos e já começar editando rápido.</p>
+      <a class="handle" data-bind-href="instaUrl" data-bind="handle" href="#" target="_blank" rel="noopener">@yone_vfx</a>
+    </div>
+  </div>
+</section>
+
+<!-- OFFER -->
+<section id="oferta">
+  <div class="glow" style="width:700px;height:700px;background:#6a1fff;opacity:.28;top:20%;left:50%;transform:translateX(-50%)"></div>
+  <div class="wrap" style="position:relative;z-index:2">
+    <div class="center rv">
+      <div class="eyebrow">✦ Oferta especial ✦</div>
+      <h2 style="margin-top:1.2rem">Leve <span class="hl">tudo</span> hoje</h2>
+    </div>
+    <div class="offer-box rv">
+      <div class="offer-list">
+        <h3>O pack inclui:</h3>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>5 aulas de edição rápida</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>+30 presets &amp; efeitos Premiere</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>+300 efeitos sonoros</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Memes atuais</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Backgrounds</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Green screens</li>
+          <li class="bonus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg><span>Mentalidade do editor rápido</span></li>
+        </ul>
+      </div>
+      <div class="offer-price">
+        <div class="tag">-80% HOJE</div>
+        <div class="old">De <s data-bind="oldPrice">R$ 199,00</s> por apenas</div>
+        <div class="new"><small>R$</small><span data-bind="priceInt">39</span><sup data-bind="priceCents">,90</sup></div>
+        <div class="once">Pagamento único · acesso imediato</div>
+        <a class="btn big pulse checkout" href="#" target="_blank" rel="noopener">Comprar agora
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <div class="secure">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg>Compra segura</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9z"/></svg>Pix ou cartão</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>7 dias de garantia</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GUARANTEE -->
+<section style="padding-top:40px">
+  <div class="wrap">
+    <div class="guarantee rv">
+      <div class="seal"><div><span><b>7</b><small>DIAS</small></span></div></div>
+      <div>
+        <h3>Garantia de <span class="hl">7 dias</span></h3>
+        <p>Comprou, testou e achou que não é pra você? Dentro de 7 dias você pede o reembolso direto pela plataforma e recebe 100% do valor de volta. Sem perguntas. O risco é todo meu.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" style="padding-top:40px">
+  <div class="wrap">
+    <div class="center rv">
+      <div class="eyebrow">Dúvidas</div>
+      <h2 style="margin-top:1.2rem">Perguntas <span class="hl">frequentes</span></h2>
+    </div>
+    <div class="faq">
+      <!-- Revise as respostas para bater com o seu produto -->
+      <details class="rv"><summary>Como recebo o pack?</summary><p>Logo após a confirmação do pagamento você recebe o acesso no e-mail cadastrado na compra. No Pix, a liberação costuma ser imediata.</p></details>
+      <details class="rv"><summary>Preciso saber editar pra usar?</summary><p>Pelo menos o básico. Vou te ensinar como um editor profissional edita vídeos virais de forma rápida e otimizada.</p></details>
+      <details class="rv"><summary>Funciona em qual programa?</summary><p>Os presets e efeitos foram feitos para o Adobe Premiere Pro. Efeitos sonoros, memes, backgrounds e green screens funcionam em qualquer editor.</p></details>
+      <details class="rv"><summary>O pagamento é mensal?</summary><p>Não. É um pagamento único de R$ 39,90.</p></details>
+      <details class="rv"><summary>E se eu não gostar?</summary><p>Você tem 7 dias de garantia. É só solicitar o reembolso e devolvemos 100% do valor.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final">
+  <div class="glow" style="width:700px;height:500px;background:#6a1fff;opacity:.3;bottom:-200px;left:50%;transform:translateX(-50%)"></div>
+  <div class="wrap rv" style="position:relative;z-index:2">
+    <h2>Pare de perder horas. <span class="hl">Comece a editar rápido hoje.</span></h2>
+    <p class="sub" style="margin:0 auto 2.2rem">De <s>R$ 199</s> por <b style="color:#fff">R$ 39,90</b>. Pagamento único, acesso imediato.</p>
+    <a class="btn big pulse checkout" href="#" target="_blank" rel="noopener">Quero meu pack agora
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">© <span id="yr"></span> <span data-bind="name">YONE VFX</span> · Todos os direitos reservados<br>Pagamento processado com segurança pela Cakto.</div>
+</footer>
+
+<div class="mbar" id="mbar">
+  <div class="p"><s>R$ 199,00</s><b>R$ 39,90</b></div>
+  <a class="btn checkout" href="#" target="_blank" rel="noopener">Comprar agora</a>
+</div>
+
+<script>
+  /* ============ EDITE AQUI ============ */
+  const CONFIG = {
+    checkoutUrl: "https://pay.cakto.com.br/3ajagbu_1039651", // link do checkout da Cakto
+    packName:   "Pack Flash",                         // nome do pack
+    name:       "YONE VFX",                               // seu nome
+    handle:     "@yone_vfx",                             // seu @
+    instaUrl:   "https://instagram.com/yone_vfx",
+    oldPrice:   "R$ 199,00",
+    priceInt:   "39",
+    priceCents: ",90"
+  };
+  /* =================================== */
+
+  CONFIG.initials = CONFIG.name.split(" ").map(w=>w[0]).slice(0,2).join("").toUpperCase();
+  document.querySelectorAll("[data-bind]").forEach(el=>{const v=CONFIG[el.dataset.bind]; if(v) el.textContent=v;});
+  document.querySelectorAll("[data-bind-href]").forEach(el=>{const v=CONFIG[el.dataset.bindHref]; if(v) el.href=v;});
+  document.querySelectorAll(".checkout").forEach(a=>a.href=CONFIG.checkoutUrl);
+  document.getElementById("yr").textContent=new Date().getFullYear();
+
+  // timeline strip
+  const clips=[["Zoom in","c1"],["Whoosh","c2"],["Glitch","c3"],["Meme","c4"],["Shake","c1"],["Riser","c2"],["Green screen","c3"],["Transição","c4"],["Impacto","c1"],["Background","c2"],["Pop","c3"],["Text anim","c4"]];
+  const tl=document.getElementById("tl");
+  const html=clips.map(([t,c],i)=>`<div class="tl-clip ${c}" style="min-width:${110+((i*37)%90)}px">${t}</div>`).join("");
+  tl.innerHTML=html+html;
+
+  // video fallbacks
+  document.querySelectorAll(".vframe video").forEach(v=>{
+    const fail=()=>v.parentElement.classList.add("novideo");
+    v.addEventListener("error",fail,true);
+    if(v.error||v.networkState===3) fail();
+  });
+
+  // reveal on scroll
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.12});
+  document.querySelectorAll(".rv").forEach(el=>io.observe(el));
+
+  // mobile sticky bar after hero
+  const mbar=document.getElementById("mbar");
+  addEventListener("scroll",()=>mbar.classList.toggle("show",scrollY>window.innerHeight*.8),{passive:true});
+</script>
+</body>
+</html>
